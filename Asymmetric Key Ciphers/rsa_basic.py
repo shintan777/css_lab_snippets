@@ -1,6 +1,8 @@
 """
 Basic rsa algorithm with encryption and decryption
 """
+from math import gcd
+
 
 def inverse(p,n):
     """
@@ -9,7 +11,15 @@ def inverse(p,n):
     for i in range(2,p):
         if (p*i)%n == 1:
             return i
+
     raise ValueError("No inverse exists")
+
+def coprime(x):
+    for i in range(2,x):
+        if(gcd(x,i)==1):
+            return i
+
+    raise ValueError("Cannot find coprime of {}".format(x))
 
 opt = input("Enter 1 for ecryption and 2 for decrytion\n")
 if opt=='1':
