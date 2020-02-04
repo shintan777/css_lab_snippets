@@ -1,7 +1,7 @@
 """
 Basic rsa algorithm with encryption and decryption
 """
-from math import gcd
+from math import gcd, pow
 
 
 def inverse(p,n):
@@ -19,41 +19,29 @@ def coprime(x):
         if(gcd(x,i)==1):
             return i
 
-def calc_keys(msg,p,q):
+    raise ValueError("Cannot find coprime of {}".format(x))
+
+def calc_keys(p, q):
     try:
         n = p * q
         phi = (p-1) * (q-1)
         e = coprime(phi)
+        d = inverse(e,n)
     except Exception as e:
         print(e)
 
-    raise ValueError("Cannot find coprime of {}".format(x))
+    return e, d, phi
 
+p, q = map(int, input("Enter 2 prime nos. (space separated)").split())
+e, d, phi = calc_keys(p, q)
+print("public")
 opt = input("Enter 1 for ecryption and 2 for decrytion\n")
 if opt=='1':
-    s = input("Enter text\n")
-    s = s.lower()
-    s = s.split()
-    s = ''.join(s)
-    k = int(input("Enter key\n"))
-    c = []
-    """
-    ## code here
-    """
-    print("Cipher text", ''.join(c))
+    s = input("Enter number as a message\n")
+    m = int(s)
+    c = pow(m, e, phi)
+    print("Cipher text", str(c))
 else:
-    s = input("Enter Chipher text\n")
-    s = s.lower()
-    k = input("Enter key or leave blank for bruteforce\n")
-    if k != '':
-        k = int(k)
-    if k != '':
-        c = []
-        ##code here
-        print("Plain text", ''.join(c))
-    else:
-        print("Bruteforcing....")
-        for k in range(1,26):
-            c = []
-            ##code here
-        print(" For k = ",k,"Plain text = ", ''.join(c))
+    s = int(input("Enter Chipher text\n"))
+    d = pow(s, d, phi)
+    print("Plain text", str(d))
