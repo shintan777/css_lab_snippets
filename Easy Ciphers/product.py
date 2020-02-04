@@ -15,13 +15,13 @@ def transform(ct, k):
         for j in range(k):
             temp.append(ct[i+j])
         mat.append(temp)
-    print('mat', mat)
+    #print('mat', mat)
     ret = []
     for i in range(k):
         for j in range(len(mat)):
             ret.append(mat[j][i])
 
-    print('ret', ret)
+    #print('ret', ret)
     temp = []
     val = k - 1
     for i in range(len(ret)):
