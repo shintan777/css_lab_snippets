@@ -8,11 +8,12 @@ def inverse(p,n):
     """
     Returns modular inverse of p in mod n
     """
-    for i in range(2,p):
+    p %= n
+    for i in range(2,n):
         if (p*i)%n == 1:
             return i
 
-    raise ValueError("No inverse exists")
+    return 1 #ValueError("No inverse exists")
 
 def coprime(x):
     for i in range(2,x):
@@ -26,7 +27,7 @@ def calc_keys(p, q):
         n = p * q
         phi = (p-1) * (q-1)
         e = coprime(phi)
-        d = inverse(e,n)
+        d = inverse(e,phi)
     except Exception as e:
         print(e)
 
@@ -39,9 +40,9 @@ opt = input("Enter 1 for ecryption and 2 for decrytion\n")
 if opt=='1':
     s = input("Enter number as a message\n")
     m = int(s)
-    c = pow(m, e, phi)
+    c = pow(m, e)% phi
     print("Cipher text", str(c))
 else:
     s = int(input("Enter Chipher text\n"))
-    d = pow(s, d, phi)
+    d = pow(s, d)% phi
     print("Plain text", str(d))
