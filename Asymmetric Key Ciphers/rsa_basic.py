@@ -10,6 +10,14 @@ def coprime(x):
             return i
     raise ValueError("Cannot find coprime of {}".format(x))
 
+def calc_keys(msg,p,q):
+    try:
+        n = p * q
+        phi = (p-1) * (q-1)
+        e = coprime(phi)
+    except Exception as e:
+        print(e)
+
 
 opt = input("Enter 1 for ecryption and 2 for decrytion\n")
 if opt=='1':
